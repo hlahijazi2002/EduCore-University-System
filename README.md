@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎓 EduCore - University Management System
 
-## Getting Started
+A robust, modern platform designed to streamline university operations and campus events. Built with **Next.js 15**, **TypeScript**, and **MongoDB**.
 
-First, run the development server:
+## 🚀 Why EduCore?
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This project is built with a focus on **Security**, **Scalability**, and **Clean Architecture**. It demonstrates my ability to handle complex backend logic within a modern frontend framework.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✨ Key Technical Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Stateless Authentication:** Custom JWT implementation using the `jose` library for high-performance Edge-compatible auth.
+- **Secure Sessions:** Implementation of `HttpOnly`, `Secure`, and `SameSite` cookies to prevent XSS and CSRF attacks.
+- **Database Modeling:** Structured data schemas using **Mongoose** for managing campus events and user roles.
+- **Responsive UI:** Crafted with **Tailwind CSS** and optimized for Arabic/English typography using **Noto Sans Arabic**.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ Tech Stack
 
-## Learn More
+- **Framework:** Next.js 15 (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **Database:** MongoDB & Mongoose
+- **Security:** JWT (jose) & Next.js Middleware
 
-To learn more about Next.js, take a look at the following resources:
+## 🚧 Roadmap (Work in Progress)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [x] Initial project setup & Architecture.
+- [x] Database Schema design.
+- [ ] Secure Auth & Session Management(In progress)
+- [ ] Admin Dashboard UI.
+- [ ] Student Course Registration system.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+_Developed as part of my continuous journey to build impactful digital products._
