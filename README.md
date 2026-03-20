@@ -25,7 +25,8 @@ This project is built with a focus on **Security**, **Scalability**, and **Clean
 
 - [x] Initial project setup & Architecture.
 - [x] Database Schema design.
-- [ ] Secure Auth & Session Management(In progress)
+- [x] Secure Auth & Session Management
+- [x] Login & Signup Functional Pages
 - [ ] Admin Dashboard UI.
 - [ ] Student Course Registration system.
 
