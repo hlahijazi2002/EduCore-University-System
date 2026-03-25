@@ -27,8 +27,10 @@ This project is built with a focus on **Security**, **Scalability**, and **Clean
 - [x] Database Schema design.
 - [x] Secure Auth & Session Management
 - [x] Login & Signup Functional Pages
-- [ ] Admin Dashboard UI.
-- [ ] Student Course Registration system.
+- [x] User Profile Management UI
+- [x] Real-time Notifications System UI
+- [x] Course Browsing & Enrollment System
+- [ ] Admin Dashboard Backend Logic (In Progress)
 
 ---
 
