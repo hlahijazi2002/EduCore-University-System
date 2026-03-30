@@ -30,8 +30,7 @@ This project is built with a focus on **Security**, **Scalability**, and **Clean
 - [x] User Profile Management UI
 - [x] Real-time Notifications System UI
 - [x] Course Browsing & Enrollment System
-- [ ] Admin Dashboard Backend Logic (In Progress)
-
----
+- [x] Professor Dashboard: Course Management & Student Grading System.
+- [x] Admin Dashboard: System Statistics & Growth Analytics (Recharts).
 
 _Developed as part of my continuous journey to build impactful digital products._
