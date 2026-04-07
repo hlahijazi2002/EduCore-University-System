@@ -32,5 +32,8 @@ This project is built with a focus on **Security**, **Scalability**, and **Clean
 - [x] Course Browsing & Enrollment System
 - [x] Professor Dashboard: Course Management & Student Grading System.
 - [x] Admin Dashboard: System Statistics & Growth Analytics (Recharts).
-
-_Developed as part of my continuous journey to build impactful digital products._
+- [x] complete backend API integration for all core modules
+- [x] Academic Core: Course Browsing & Advanced Enrollment System.
+- [x] Postgraduate Hub: Full-stack Master's & PhD Program Management.
+- [ ] Unified Dashboard: Dynamic statistics for Admins & tailored views for Professors/Students.
+      _Developed as part of my continuous journey to build impactful digital products._

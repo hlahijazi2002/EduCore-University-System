@@ -65,7 +65,7 @@ const GraduatePage = () => {
       const res = await fetch("/api/graduate");
       const data = await res.json();
       if (data.success) {
-        setPrograms(data.program);
+        setPrograms(data.programs);
       }
     } catch (error) {
       console.error("Error fetching programs:", error);
@@ -145,7 +145,7 @@ const GraduatePage = () => {
               </DialogHeader>
               <form onSubmit={handleAddProgram} className="space-y-4 mt-4">
                 <div className="space-y-2">
-                  <label htmlFor="">اسم البرنامج</label>
+                  <Label>اسم البرنامج</Label>
                   <Input
                     value={formData.title}
                     onChange={(e) =>
@@ -156,9 +156,9 @@ const GraduatePage = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label htmlFor="">النوع</label>
+                  <Label>النوع</Label>
                   <Select
-                    value={formData.title}
+                    value={formData.type}
                     onValueChange={(value: string) =>
                       setFormData({ ...formData, type: value })
                     }
@@ -173,7 +173,7 @@ const GraduatePage = () => {
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <label htmlFor="">الوصف</label>
+                  <Label>الوصف</Label>
                   <Textarea
                     value={formData.description}
                     onChange={(e) =>
@@ -184,7 +184,7 @@ const GraduatePage = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label htmlFor="">متطلبات القبول</label>
+                  <Label>متطلبات القبول</Label>
                   <Textarea
                     value={formData.requirements}
                     onChange={(e) =>
@@ -196,7 +196,7 @@ const GraduatePage = () => {
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <label htmlFor="">المدة (بالسنوات)</label>
+                    <Label>المدة (بالسنوات)</Label>
                     <Input
                       value={formData.duration}
                       onChange={(e) =>
@@ -207,10 +207,10 @@ const GraduatePage = () => {
                     />
                   </div>
                   <div className="space-y-2">
-                    <label htmlFor="">تاريخ البدء</label>
+                    <Label>تاريخ البدء</Label>
                     <Input
                       type="date"
-                      value={formData.duration}
+                      value={formData.startDate}
                       onChange={(e) =>
                         setFormData({ ...formData, startDate: e.target.value })
                       }
@@ -219,20 +219,85 @@ const GraduatePage = () => {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <label htmlFor="">صورة (رابط إختياري)</label>
+                  <Label>صورة (رابط إختياري)</Label>
                   <Input
-                    value={formData.duration}
+                    value={formData.image}
                     onChange={(e) =>
                       setFormData({ ...formData, image: e.target.value })
                     }
-                    required
+                    placeholder="https://..."
                   />
                 </div>
+                <Button type="submit" className="w-full">
+                  إضافة
+                </Button>
               </form>
             </DialogContent>
           </Dialog>
         )}
       </div>
+
+      {loading ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Skeleton className="h-60 w-full rounded-xl" />
+          <Skeleton className="h-60 w-full rounded-xl" />
+        </div>
+      ) : programs.length === 0 ? (
+        <div className="text-center py-20 bg-gray-50 rounded-lg border border-dashed text-gray-500">
+          لا توجد برامج متاحة حالياً
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {programs.map((program) => (
+            <Card
+              key={program._id}
+              className="hover:shadow-lg transition-shadow border-t-4 border-t-primary"
+            >
+              <CardHeader>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <span className="text-xs font-bold text-primary bg-primary/10 px-2 py-1 rounded mb-2 inline-block">
+                      {program.type === "master" ? "ماجستير" : "دكتوراه"}
+                    </span>
+                    <CardTitle className="text-2xl">{program.title}</CardTitle>
+                  </div>
+                  <span className="text-sm font-medium bg-gray-100 px-3 py-1 rounded-full">
+                    {program.duration}
+                  </span>
+                </div>
+                <CardDescription className="line-clamp-2 mt-2">
+                  {program.description}
+                </CardDescription>
+              </CardHeader>
+
+              <CardContent className="space-y-4 text-sm text-gray-700">
+                <div>
+                  <p className="font-semibold mb-1">متطلبات الوصول</p>
+                  <p className="line-clamp-3">{program.requirements}</p>
+                </div>
+                <div className="flex items-center gap-2 text-gray-500">
+                  <span>يبدأ في </span>
+                  <span>
+                    {new Date(program.startDate).toLocaleDateString(
+                      "ar-SA",
+                    )}{" "}
+                  </span>
+                </div>
+
+                {program.coordinator && (
+                  <div className="flex items-center gap-2 text-gray-500">
+                    <span>المنسق:</span>
+                    <span>{program.coordinator.name}</span>
+                  </div>
+                )}
+              </CardContent>
+              <CardFooter>
+                <Button className="w-full">تقديم طلب</Button>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
