@@ -29,7 +29,7 @@ const isReteLimited = (ip: string): boolean => {
   return false;
 };
 
-const POST = async (request: Request) => {
+export const POST = async (request: Request) => {
   try {
     const ip = request.headers.get("x-forwarded-for") || "unknow";
     if (isReteLimited(ip)) {
@@ -99,4 +99,4 @@ const POST = async (request: Request) => {
     );
   }
 };
-export default POST;
+

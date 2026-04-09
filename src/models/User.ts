@@ -18,7 +18,10 @@ const UserSchema = new Schema<IUser>(
       unique: true,
       lowercase: true,
       trim: true,
-      match: [/^\S+0\S+\.\S+$/, "يرجى إدخال بريد إلكتروني صحيح"],
+      match: [
+        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+        "يرجى إدخال بريد إلكتروني صحيح",
+      ],
     },
     password: {
       type: String,
@@ -42,7 +45,6 @@ const UserSchema = new Schema<IUser>(
   },
 );
 
-const User: Model<IUser> =
-  mongoose.models.User || mongoose.model<IUser>("UserSchema", UserSchema);
+const User = mongoose.models.User || mongoose.model<IUser>("User", UserSchema);
 
 export default User;

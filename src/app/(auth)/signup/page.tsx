@@ -25,7 +25,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { loginSchema, SignupInput } from "@/lib/validations";
+import { SignupInput, signupSchema } from "@/lib/validations";
 import { error } from "console";
 
 const roles = [
@@ -57,7 +57,7 @@ const Signup = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<SignupInput>({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(signupSchema),
     defaultValues: {
       email: "",
       password: "",
@@ -78,7 +78,7 @@ const Signup = () => {
         return;
       }
       toast.success("تم إنشاء الحساب بنجاح");
-      router.push(`dashboard/${result.user.role}`);
+      router.push(`/dashboard/${result.user.role}`);
     } catch {
       toast.error("حدث خطأ غير متوقع");
     }
@@ -129,10 +129,10 @@ const Signup = () => {
                       "placeholder:text-muted-foreground",
                       "focus-visible:outline-none focus-visible:border-primary",
                       "disabled:cursor-not-allowed disabled:opacity-50",
-                      errors.email &&
+                      errors.name &&
                         "border-destructive focus-visible:ring-destructive",
                     )}
-                    {...register("email")}
+                    {...register("name")}
                     disabled={isSubmitting}
                     dir="ltr"
                   />

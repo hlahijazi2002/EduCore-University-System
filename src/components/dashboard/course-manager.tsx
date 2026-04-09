@@ -223,7 +223,7 @@ export function CourseManager() {
           ) : (
             <div className="relative overflow-x-auto">
               <table className="w-full text-sm text-right">
-                <thead className="text-xs upeercase bg-muted/50 text-muted-foreground">
+                <thead className="text-xs uppercase bg-muted/50 text-muted-foreground">
                   <tr>
                     <th className="px-6 py-3 rounded-r-md">الطالب</th>
                     <th className="px-6 py-3">البريد الإلكتروني</th>
@@ -290,52 +290,57 @@ export function CourseManager() {
       </Card>
 
       <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-        <SheetHeader side="left">
-          <SheetTitle>رصد درجة للطالب</SheetTitle>
-          <SheetDescription>{selectedStudent?.name}</SheetDescription>
-        </SheetHeader>
-        <form onSubmit={handleSubmit(onSubmitGrade)} className="space-y-6 mt-6">
-          <div className="sace-y-2">
-            <label>الدرجة (من 100)</label>
-            <input
-              id="grade"
-              type="number"
-              className={cn(
-                "flex h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-                errors.grade &&
-                  "border-destructive focus-visible:ring-destructive",
+        <SheetContent side="left">
+          <SheetHeader>
+            <SheetTitle>رصد درجة للطالب</SheetTitle>
+            <SheetDescription>{selectedStudent?.name}</SheetDescription>
+          </SheetHeader>
+          <form
+            onSubmit={handleSubmit(onSubmitGrade)}
+            className="space-y-6 mt-6"
+          >
+            <div className="space-y-2">
+              <label>الدرجة (من 100)</label>
+              <input
+                id="grade"
+                type="number"
+                className={cn(
+                  "flex h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                  errors.grade &&
+                    "border-destructive focus-visible:ring-destructive",
+                )}
+                {...register("grade")}
+              />
+              {errors.grade && (
+                <p className="text-xs text-destructive">
+                  {errors.grade.message as string}
+                </p>
               )}
-              {...register("grade")}
-            />
-            {errors.grade && (
-              <p className="text-xs text-destructive">
-                {errors.grade.message as string}
-              </p>
-            )}
-          </div>
-          <div className="space-y-2">
-            <label htmlFor="comment" className="text-sm font-medium">
-              ملاحظات (اختياري)
-            </label>
-            <textarea
-              id="comment"
-              className={cn(
-                "flex min-h-20 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+            </div>
+            <div className="space-y-2">
+              <label htmlFor="comment" className="text-sm font-medium">
+                ملاحظات (اختياري)
+              </label>
+              <textarea
+                id="comment"
+                className={cn(
+                  "flex min-h-20 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                )}
+                {...register("comment")}
+              />
+            </div>
+            <Button type="submit" className="w-full" disabled={isSubmitting}>
+              {isSubmitting ? (
+                <Loader2 className="ml-2 h-4 w-4 animate-spin" />
+              ) : (
+                <Save className="ml-2 h-4 w-4" />
               )}
-              {...register("comment")}
-            />
-          </div>
-          <Button type="submit" className="w-full" disabled={isSubmitting}>
-            {isSubmitting ? (
-              <Loader2 className="ml-2 h-4 w-4 animate-spin" />
-            ) : (
-              <Save className="ml-2 h-4 w-4" />
-            )}
-            حفظ
-          </Button>
-        </form>
+              حفظ
+            </Button>
+          </form>
+        </SheetContent>
       </Sheet>
     </div>
   );

@@ -35,5 +35,5 @@ This project is built with a focus on **Security**, **Scalability**, and **Clean
 - [x] complete backend API integration for all core modules
 - [x] Academic Core: Course Browsing & Advanced Enrollment System.
 - [x] Postgraduate Hub: Full-stack Master's & PhD Program Management.
-- [ ] Unified Dashboard: Dynamic statistics for Admins & tailored views for Professors/Students.
+- [x] Unified Dashboard: Dynamic statistics for Admins & tailored views for Professors/Students.
       _Developed as part of my continuous journey to build impactful digital products._

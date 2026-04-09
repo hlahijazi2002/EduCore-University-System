@@ -49,7 +49,7 @@ export default function Home() {
           مستقبل إدارة الجامعات
         </h1>
         <p className="text-xl text-muted-foreground">
-          اختر دوراً أدناه لاستكشاف لوحة التحكم EduCore اختبر منصة
+          اختبر منصة منصةEduCore، اختر دورك أدناه لاستكشاف لوحة التحكم
         </p>
       </div>
       <div className="grid grid-cols md:grid-cols-3 gap-6 w-full max-w-5xl px-4">
@@ -76,7 +76,11 @@ export default function Home() {
             color: "text-pink-500",
           },
         ].map((item) => (
-          <Link key={item.role} href={`/${item.role}`} className="group">
+          <Link
+            key={item.role}
+            href={`/dashboard/${item.role}`}
+            className="group"
+          >
             <Card className="h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-primary/10 hover:border-primary/30 ">
               <CardHeader>
                 <item.icon className={`w-12 h-12 mb-4 ${item.color}`} />
@@ -85,7 +89,7 @@ export default function Home() {
               </CardHeader>
               <CardContent>
                 <Button
-                  className="w-full group-hover:bg-primary/90"
+                  className="w-full group-hover:bg-primary/60"
                   variant="secondary"
                 >
                   دخول لوحة التحكم

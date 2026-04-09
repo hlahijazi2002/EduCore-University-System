@@ -5,10 +5,11 @@ import { signToken, setAuthCookie } from "@/lib/auth";
 import { hashPassword } from "@/lib/password";
 import { signupSchema } from "@/lib/validations";
 
-const POST = async (request: Request) => {
+export const POST = async (request: Request) => {
   try {
     await dbConnect();
     const body = await request.json();
+    console.log("البيانات القادمة من الفرونت إند:", body);
 
     const validationResult = signupSchema.safeParse(body);
     if (!validationResult.success) {
@@ -62,5 +63,3 @@ const POST = async (request: Request) => {
     );
   }
 };
-
-export default POST;

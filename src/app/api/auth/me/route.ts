@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getSession } from "@/lib/auth";
 
-const GET = async () => {
+export const GET = async () => {
   try {
     const session = await getSession();
     if (!session) {
@@ -27,5 +27,3 @@ const GET = async () => {
     );
   }
 };
-
-export default GET;

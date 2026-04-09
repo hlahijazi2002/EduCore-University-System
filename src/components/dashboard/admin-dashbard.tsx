@@ -115,8 +115,8 @@ const AdminDashbard = () => {
             <CardTitle>نظرة عامة على التسجيل</CardTitle>
             <CardDescription>بيانات تجريبية للنمو</CardDescription>
           </CardHeader>
-          <CardContent className="h-72">
-            <ResponsiveContainer width="100%" height="100%">
+          <CardContent className="h-72 min-h-0 w-full">
+            <ResponsiveContainer width="100%" aspect={2}>
               <BarChart data={mockChartData}>
                 <CartesianGrid
                   strokeDasharray="3 3"

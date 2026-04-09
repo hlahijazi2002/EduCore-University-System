@@ -7,9 +7,7 @@ import { useState, useEffect } from "react";
 import {
   Menu,
   Book,
-  Users,
   GraduationCap,
-  LayoutDashboard,
   Settings,
   LogOut,
   Moon,
@@ -102,7 +100,7 @@ const Header = () => {
   }, [pathname]);
 
   const handleLogOut = async () => {
-    await fetch("/app/auth/logout", { method: "POST" });
+    await fetch("/api/auth/logout", { method: "POST" });
     setUser(null);
     router.push("/login");
   };
@@ -126,14 +124,13 @@ const Header = () => {
             </span>
           </Link>
 
-          {/* disktop */}
           <div className="hidden md:flex flex-1 justify-center">
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
                   <NavigationMenuTrigger> الأكاديمية</NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <ul className="grid gap-3 p-6 md:w-100 lg:w-[500px] lg:grid-cols-[1fr_.75fr]">
+                    <ul className="grid gap-3 p-6 md:w-100 lg:w-125 lg:grid-cols-[1fr_.75fr]">
                       <li className="row-span-3">
                         <NavigationMenuLink asChild>
                           <a
@@ -141,7 +138,7 @@ const Header = () => {
                             href="/lib"
                           >
                             <Book className=" h-6 w-6 text-white " />
-                            <div className="mb-2 mt-4 text-lg font-meduim text-white">
+                            <div className="mb-2 mt-4 text-lg font-medium text-white">
                               التميز الأكاديمي
                             </div>
                             <p className="text-sm leading-tight text-white/90">
@@ -159,7 +156,7 @@ const Header = () => {
                       </ListItem>
                       <ListItem href="/online" title="التعلم عن بعد">
                         {" "}
-                        حيارات مرنة للمهنيين
+                        خيارات مرنة للمهنيين
                       </ListItem>
                     </ul>
                   </NavigationMenuContent>
@@ -201,7 +198,7 @@ const Header = () => {
               </NavigationMenuList>
             </NavigationMenu>
           </div>
-          {/* right section: theme and profile */}
+
           <div className="hidden md:flex items-center gap-4">
             <Button
               variant="ghost"
@@ -231,9 +228,9 @@ const Header = () => {
                   href="/profile"
                   className="flex items-center gap-2 text-sm hover:text-primary transition-colors"
                 >
+                  <span className="font-medium">{user.name}</span>
                   <div className="bg-primary/10 p-2 rounded-full">
                     <User className="h-4 w-4 text-primary" />
-                    <span className="font-medium">{user.name}</span>
                   </div>
                 </Link>
                 <Button
@@ -260,7 +257,6 @@ const Header = () => {
             )}
           </div>
 
-          {/*mobile*/}
           <div className="flex items-center md:hidden gap-4 ">
             <Button
               variant="ghost"
@@ -331,7 +327,7 @@ const Header = () => {
                           className="flex items-center gap-2 text-lg font-medium hover:text-primary transition-colors"
                         >
                           <Settings className="w-4 h-4" />
-                          الاعدادات
+                          الإعدادات
                         </Link>
                         <Button
                           onClick={handleLogOut}
@@ -397,21 +393,19 @@ const ListItem = React.forwardRef<
 >(({ className, title, children, ...props }, ref) => {
   return (
     <li>
-      <NavigationMenuLink asChild>
-        <a
-          ref={ref}
-          className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className,
-          )}
-          {...props}
-        >
-          <div className="text-sm font-meduim leading-none ">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-            {children}
-          </p>
-        </a>
-      </NavigationMenuLink>
+      <a
+        ref={ref}
+        className={cn(
+          "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+          className,
+        )}
+        {...props}
+      >
+        <div className="text-sm font-medium leading-none">{title}</div>
+        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+          {children}
+        </p>
+      </a>
     </li>
   );
 });
