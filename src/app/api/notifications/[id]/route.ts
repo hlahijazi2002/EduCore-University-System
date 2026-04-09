@@ -42,7 +42,7 @@ export const PUT = async (
   }
 };
 
-export const DELETE1 = async (
+export const DELETE = async (
   request: Request,
   { params }: { params: Promise<{ id: string }> },
 ) => {
