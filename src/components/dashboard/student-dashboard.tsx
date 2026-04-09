@@ -131,7 +131,7 @@ const StudentDashboard = () => {
               <BookOpen className="mx-auto h-12 w-12 text-muted-foreground" />
               <h3 className="mt-4 text-lg font-medium">لا توجد مواد مسجلة</h3>
               <p className="text-muted-foreground mt-2">
-                قم بزيارة تبويب "تصفح المواد" للتسجيل في مواد جديدة
+                قم بزيارة تبويب تصفح المواد للتسجيل في مواد جديدة
               </p>
             </div>
           )}
