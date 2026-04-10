@@ -51,13 +51,16 @@ const AdminDashbard = () => {
   const stats = [
     {
       title: "إجمالي المستخدمين",
-      value: loadingUsers ? "..." : usersData?.users.length.toString(),
+      // أضفنا علامة استفهام إضافية و (0) كقيمة افتراضية
+      value: loadingUsers ? "..." : (usersData?.users?.length || 0).toString(),
       icon: Users,
       desc: "مستخدم مسجل",
     },
     {
       title: "الساعات النشطة",
-      value: loadingCourses ? "..." : coursesData?.courses.length.toString(),
+      value: loadingCourses
+        ? "..."
+        : (coursesData?.courses?.length || 0).toString(),
       icon: Book,
       desc: "ساعة دراسية",
     },
@@ -65,24 +68,25 @@ const AdminDashbard = () => {
       title: "الطلاب",
       value: loadingUsers
         ? "..."
-        : usersData?.users
-            .filter((u) => u.role === "student")
-            .length.toString(),
-      icon: GraduationCapIcon,
+        : (
+            usersData?.users?.filter((u: any) => u?.role === "student")
+              ?.length || 0
+          ).toString(),
+      icon: GraduationIcon,
       desc: "طالب وطالبة",
     },
     {
       title: "الأساتذة",
       value: loadingUsers
         ? "..."
-        : usersData?.users
-            .filter((u) => u.role === "professor")
-            .length.toString(),
+        : (
+            usersData?.users?.filter((u: any) => u?.role === "professor")
+              ?.length || 0
+          ).toString(),
       icon: Activity,
       desc: "عضو هيئة تدريس",
     },
   ];
-
   return (
     <div className="space-y-6">
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -90,6 +94,7 @@ const AdminDashbard = () => {
           <motion.div
             key={item.title}
             initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
           >
             <Card className="glass-card">
@@ -115,8 +120,8 @@ const AdminDashbard = () => {
             <CardTitle>نظرة عامة على التسجيل</CardTitle>
             <CardDescription>بيانات تجريبية للنمو</CardDescription>
           </CardHeader>
-          <CardContent className="h-72 min-h-0 w-full">
-            <ResponsiveContainer width="100%" aspect={2}>
+          <CardContent className="h-[300px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
               <BarChart data={mockChartData}>
                 <CartesianGrid
                   strokeDasharray="3 3"
@@ -139,7 +144,7 @@ const AdminDashbard = () => {
                   itemStyle={{ color: "var(--foreground)" }}
                 />
                 <Bar
-                  dataKey="student"
+                  dataKey="students"
                   fill="currentColor"
                   radius={[4, 4, 0, 0]}
                   className="fill-primary"
@@ -186,7 +191,7 @@ const AdminDashbard = () => {
 
 export default AdminDashbard;
 
-function GraduationCapIcon(props: any) {
+function GraduationIcon(props: any) {
   return (
     <svg
       {...props}

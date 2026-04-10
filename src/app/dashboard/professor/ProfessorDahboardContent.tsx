@@ -450,7 +450,7 @@ export default function ProfessorDashboardContent() {
       {loading ? (
         <div>جارِ تحميل الدورات التعليمية</div>
       ) : courses.length === 0 ? (
-        <div className="text-center py-10 bg-gray-50 border border-dashed rounded-lg ">
+        <div className="text-center py-10 bg-gray-50 border border-dashed rounded-lg  my-8">
           <p className="text-gray-500">لم يتم إضافة أي دورات تعليمية بعد</p>
         </div>
       ) : (

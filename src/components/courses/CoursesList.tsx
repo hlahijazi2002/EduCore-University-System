@@ -66,7 +66,7 @@ const CoursesList = ({ type }: CourseCardProps) => {
   }, [type]);
 
   if (loading)
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-10">
       {[1, 2, 3, 4, 5, 6].map((i) => (
         <div key={i} className="flex flex-col space-y-3">
           <Skeleton className="h-50 w-full rounded-xl" />
@@ -79,7 +79,7 @@ const CoursesList = ({ type }: CourseCardProps) => {
     </div>;
   if (courses.length === 0) {
     return (
-      <div className="text-center py-20 bg-gray-50 rounded-lg border border-dashed border-gray-300">
+      <div className="text-center py-20 bg-gray-50 rounded-lg border border-dashed border-gray-300 my-8">
         <p className="text-xl text-gray-500">
           لا توجد مواد دراسية متاحة حالياً في هذا القسم
         </p>
@@ -88,7 +88,7 @@ const CoursesList = ({ type }: CourseCardProps) => {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-8">
       {courses.map((course) => (
         <Card
           key={course.id}

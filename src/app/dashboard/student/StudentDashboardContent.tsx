@@ -40,7 +40,7 @@ const StudentDashboardContent = () => {
 
   if (courses.length === 0) {
     return (
-      <div className="text-center py-20 bg-gray-50 border border-dashed rounded-lg">
+      <div className="text-center py-20 bg-gray-50 border border-dashed rounded-lg my-8">
         <p className="text-xl text-gray-500 mb-4">
           أنت غير مسجل في أي دورات حالياً
         </p>
@@ -51,7 +51,7 @@ const StudentDashboardContent = () => {
     );
   }
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-8">
       {courses.map((course) => (
         <Card key={course.id} className="hover:shadow-md transition-shadow">
           <CardHeader>
