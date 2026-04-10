@@ -49,7 +49,7 @@ const components: { title: string; href: string; description: string }[] = [
     description: "ادارة المستخدمين والمواد والاحصائيات العامة",
   },
   {
-    title: "لوحة تحكم الدكتور",
+    title: "لوحة تحكم الأستاذ",
     href: "/dashboard/professor",
     description: "ادارة المواد والدرجات والطلاب المحتملين",
   },
@@ -124,9 +124,9 @@ const Header = () => {
             </span>
           </Link>
 
-          <div className="hidden md:flex flex-1 justify-center">
+          <div className="hidden md:flex flex-1 justify-center ">
             <NavigationMenu>
-              <NavigationMenuList>
+              <NavigationMenuList className="space-x-2">
                 <NavigationMenuItem>
                   <NavigationMenuTrigger> الأكاديمية</NavigationMenuTrigger>
                   <NavigationMenuContent>
@@ -203,13 +203,13 @@ const Header = () => {
             <Button
               variant="ghost"
               size="icon"
-              className="rounded-full"
+              className="rounded-full flex items-center justify-center relative "
               onClick={() => {
                 setTheme(theme === "dark" ? "light" : "dark");
               }}
             >
-              <Sun className="w-[1.2rem] h-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-              <Moon className="w-[1.2rem] h-[1.2rem] rotate-90 scale-0 dark:rotate-0 dark:scale-100 " />
+              <Sun className="w-[1.2rem] h-[1.2rem] absolute rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+              <Moon className="w-[1.2rem] h-[1.2rem] absolute rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 " />
               <span className="sr-only">تبديل الوضع</span>
             </Button>
             {user ? (

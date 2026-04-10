@@ -110,7 +110,7 @@ const CampusListPage = () => {
             <Button>إضافة فعالية</Button>
           </DialogTrigger>
           <DialogContent
-            className="max-w-md bg-background text-foreground"
+            className="max-w-md bg-background text-foreground p-5"
             dir="rtl"
           >
             <DialogHeader>

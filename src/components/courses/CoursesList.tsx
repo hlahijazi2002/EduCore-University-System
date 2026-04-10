@@ -80,7 +80,7 @@ const CoursesList = ({ type }: CourseCardProps) => {
   if (courses.length === 0) {
     return (
       <div className="text-center py-20 bg-gray-50 rounded-lg border border-dashed border-gray-300">
-        <p className="text-xl text-grey-500">
+        <p className="text-xl text-gray-500">
           لا توجد مواد دراسية متاحة حالياً في هذا القسم
         </p>
       </div>

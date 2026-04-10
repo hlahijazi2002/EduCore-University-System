@@ -137,7 +137,7 @@ const GraduatePage = () => {
               <Button>إضافة برنامج</Button>
             </DialogTrigger>
             <DialogContent
-              className="max-w-lg bg-background text-foreground"
+              className="max-w-lg bg-background text-foreground p-6"
               dir="rtl"
             >
               <DialogHeader>

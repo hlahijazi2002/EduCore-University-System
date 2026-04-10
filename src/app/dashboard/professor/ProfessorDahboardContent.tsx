@@ -160,18 +160,18 @@ export default function ProfessorDashboardContent() {
   };
 
   return (
-    <div className="space-y-8" dir="rtl">
+    <div className="space-y-8 mt-4" dir="rtl">
       <div className="flex justify-between items-center">
         <h2 className="text-xl font-semibold">موادك الدراسية</h2>
         <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
           <DialogTrigger asChild>
             <Button>+ إضافة مادة جديدة</Button>
           </DialogTrigger>
-          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-background text-foreground">
+          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-background text-foreground p-6">
             <DialogHeader>
               <DialogTitle>إضافة مادة جديدة</DialogTitle>
             </DialogHeader>
-            <form onSubmit={handleCreateCourse} className="space-y-4 mt-4">
+            <form onSubmit={handleCreateCourse} className="space-y-5 mt-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>عنوان المادة</Label>
@@ -450,7 +450,7 @@ export default function ProfessorDashboardContent() {
       {loading ? (
         <div>جارِ تحميل الدورات التعليمية</div>
       ) : courses.length === 0 ? (
-        <div className="text-center py-10 bg-gray-50 border border-dashed rounded-lg">
+        <div className="text-center py-10 bg-gray-50 border border-dashed rounded-lg ">
           <p className="text-gray-500">لم يتم إضافة أي دورات تعليمية بعد</p>
         </div>
       ) : (
