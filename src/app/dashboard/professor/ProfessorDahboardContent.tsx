@@ -32,6 +32,8 @@ import { toast } from "sonner";
 export default function ProfessorDashboardContent() {
   const [courses, setCourses] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
+  const [currentEditId, setCurrentEditId] = useState<string | null>(null);
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [isAddMaterialOpen, setIsAddMaterialOpen] = useState(false);
   const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
@@ -78,38 +80,50 @@ export default function ProfessorDashboardContent() {
     fetchCourses();
   }, []);
 
-  const handleCreateCourse = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const method = isEditing ? "PUT" : "POST";
+    const dataToSend = isEditing
+      ? { ...formData, id: currentEditId } // إضافة المعرف للبيانات في حالة التعديل
+      : formData;
     try {
       const res = await fetch("/api/courses", {
-        method: "POST",
+        method: method,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(dataToSend),
       });
       const data = await res.json();
       if (data.success) {
-        toast.success("تم إنشاء المادة بنجاح");
+        toast.success(
+          isEditing ? "تم تحديث المادة بنجاح" : "تم إنشاء المادة بنجاح",
+        );
         setIsCreateOpen(false);
         fetchCourses();
-        setFormData({
-          title: "",
-          code: "",
-          description: "",
-          semester: "الفصل الأول",
-          year: new Date().getFullYear(),
-          credits: 3,
-          type: "undergraduate",
-          requirements: "",
-          format: "",
-          image: "",
-        });
+        resetForm();
       } else {
         toast.error(data.message || "حدث خطأ");
       }
     } catch (error) {
-      console.error("Error creating course:", error);
+      console.error("Error:", error);
       toast.error("حدث خطأ أثناء الاتصال بالخادم");
     }
+  };
+
+  const resetForm = () => {
+    setIsEditing(false);
+    setCurrentEditId(null);
+    setFormData({
+      title: "",
+      code: "",
+      description: "",
+      semester: "الفصل الأول",
+      year: new Date().getFullYear(),
+      credits: 3,
+      type: "undergraduate",
+      requirements: "",
+      format: "",
+      image: "",
+    });
   };
 
   const handleAddMaterial = async (e: React.FormEvent) => {
@@ -159,19 +173,45 @@ export default function ProfessorDashboardContent() {
     }
   };
 
+  const openEditCourse = (course: any) => {
+    setFormData({
+      title: course.title,
+      code: course.code,
+      description: course.description || "",
+      semester: course.semester,
+      year: course.year,
+      credits: course.credits,
+      type: course.type,
+      requirements: course.requirements || "",
+      format: course.format || "",
+      image: course.image || "",
+    });
+    setCurrentEditId(course.id);
+    setIsEditing(true);
+    setIsCreateOpen(true);
+  };
   return (
     <div className="space-y-8 mt-4" dir="rtl">
       <div className="flex justify-between items-center">
         <h2 className="text-xl font-semibold">موادك الدراسية</h2>
         <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
           <DialogTrigger asChild>
-            <Button>+ إضافة مادة جديدة</Button>
+            <Button
+              onClick={() => {
+                resetForm();
+                setIsCreateOpen(true);
+              }}
+            >
+              + إضافة مادة جديدة
+            </Button>
           </DialogTrigger>
           <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-background text-foreground p-6">
             <DialogHeader>
-              <DialogTitle>إضافة مادة جديدة</DialogTitle>
+              <DialogTitle>
+                {isEditing ? "تعديل المادة" : "إضافة مادة جديدة"}
+              </DialogTitle>
             </DialogHeader>
-            <form onSubmit={handleCreateCourse} className="space-y-5 mt-4">
+            <form onSubmit={handleSubmit} className="space-y-5 mt-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>عنوان المادة</Label>
@@ -308,7 +348,7 @@ export default function ProfessorDashboardContent() {
                 />
               </div>
               <Button type="submit" className="w-full">
-                إنشاء المادة
+                {isEditing ? "حفظ التعديلات" : "إنشاء المادة"}
               </Button>
             </form>
           </DialogContent>
@@ -463,7 +503,7 @@ export default function ProfessorDashboardContent() {
                     <CardTitle>{course.title}</CardTitle>
                     <CardDescription>{course.code}</CardDescription>
                   </div>
-                  <span className="text-xs bg-gray-100 px-2 py-1 rounded">
+                  <span className="text-xs px-2 py-1 rounded text-gray-900 bg-gray-200">
                     {course.type}
                   </span>
                 </div>
@@ -481,7 +521,12 @@ export default function ProfessorDashboardContent() {
               </CardContent>
               <CardFooter className="flex flex-col gap-2">
                 <div className="flex gap-2 w-full">
-                  <Button variant="outline" size="sm" className="flex-1">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="flex-1"
+                    onClick={() => openEditCourse(course)}
+                  >
                     تعديل
                   </Button>
                   <Button

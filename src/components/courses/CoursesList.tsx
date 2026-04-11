@@ -113,7 +113,7 @@ const CoursesList = ({ type }: CourseCardProps) => {
               </div>
             )}
             <div className="absolute top-2 left-2 flex gap-2">
-              <span className="bg-white/90 backdrop-blur px-2 py-1 text-sm font-bold rounded text-primary border border-gray-100 shadow-sm">
+              <span className="bg-white/90 backdrop-blur px-2 py-1 text-sm font-bold rounded border border-gray-100 shadow-sm text-black/90">
                 {course.code}
               </span>
 

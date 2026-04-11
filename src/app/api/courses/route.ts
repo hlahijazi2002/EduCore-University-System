@@ -153,3 +153,62 @@ export const POST = async (request: Request) => {
     );
   }
 };
+
+export const PUT = async (request: Request) => {
+  try {
+    const session = await getSession();
+    if (!session || session.role === "student") {
+      return NextResponse.json(
+        { success: false, message: "غير مصرح لك " },
+        { status: 403 },
+      );
+    }
+
+    await dbConnect();
+    const body = await request.json();
+    const { id, ...updateData } = body;
+
+    if (!id) {
+      return NextResponse.json(
+        { success: false, message: "معرف المادة مطلوب" },
+        { status: 400 },
+      );
+    }
+
+    const courseToUpdate = await Course.findById(id);
+    if (!courseToUpdate) {
+      return NextResponse.json(
+        { success: false, message: "المادة غير موجودة" },
+        { status: 404 },
+      );
+    }
+
+    if (
+      session.role !== "admin" &&
+      courseToUpdate.professor.toString() !== session.userId
+    ) {
+      return NextResponse.json(
+        { success: false, message: "لا تملك صلاحية تعديل هذه المادة" },
+        { status: 403 },
+      );
+    }
+
+    const updatedCourse = await Course.findByIdAndUpdate(
+      id,
+      { $set: updateData },
+      { new: true, runValidators: true },
+    );
+
+    return NextResponse.json({
+      success: true,
+      message: "تم تحديث بيانات المادة بنجاح",
+      course: updatedCourse,
+    });
+  } catch (error) {
+    console.error("Update course error:", error);
+    return NextResponse.json(
+      { success: false, message: "حدث خطأ أثناء التحديث" },
+      { status: 500 },
+    );
+  }
+};
