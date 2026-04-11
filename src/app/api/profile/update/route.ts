@@ -47,6 +47,17 @@ export const PUT = async (request: Request) => {
         { status: 400 },
       );
     }
+
+    return NextResponse.json({
+      success: true,
+      message: "تم تحديث البيانات بنجاح",
+      user: {
+        id: user._id.toString(),
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
+    });
   } catch (error) {
     console.error("Profile fetch error:", error);
     return NextResponse.json(

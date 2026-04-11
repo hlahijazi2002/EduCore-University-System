@@ -53,20 +53,20 @@ const ProfileForm = ({ user }: { user: UserProfile }) => {
       setIsLoading(false);
     }
   };
-
-  const isStudent = user.role === "student";
-  const isAdmin = user.role === "admin";
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="space-y-6 max-w-xl mx-auto p-6 bg-card rounded-xl border shadow-sm"
+      dir="rtl"
     >
       <div className="space-y-4">
-        <div className="space-y-2">
+        <div>
           <label className="text-sm font-medium">الاسم الكامل</label>
           <Input
+            className="mt-1"
             {...register("name", {
               required: "الاسم مطلوب",
+
               minLength: { value: 2, message: "الاسم قصير جداً" },
             })}
           />
@@ -77,9 +77,10 @@ const ProfileForm = ({ user }: { user: UserProfile }) => {
           )}
         </div>
 
-        <div className="space-y-2">
+        <div>
           <label className="text-sm font-medium">البريد الالكتروني</label>
           <Input
+            className="mt-1"
             {...register("email", {
               required: "البريد الالكتوني مطلوب",
             })}
@@ -92,12 +93,12 @@ const ProfileForm = ({ user }: { user: UserProfile }) => {
           )}
         </div>
 
-        <div className="space-y-2">
+        <div>
           <label className="text-sm font-medium">
-            {" "}
             كلمة المرور الجديدة (اختياري)
           </label>
           <Input
+            className="mt-1"
             {...register("password", {
               minLength: {
                 value: 8,
@@ -114,9 +115,10 @@ const ProfileForm = ({ user }: { user: UserProfile }) => {
           )}
         </div>
 
-        <div className="space-y-2">
+        <div>
           <label className="text-sm font-medium">الدور (للاطلاع فقط)</label>
           <Input
+            className="mt-1"
             value={
               user.role === "admin"
                 ? "مدير"
@@ -126,11 +128,6 @@ const ProfileForm = ({ user }: { user: UserProfile }) => {
             }
             disabled
           />
-          {errors.password && (
-            <p className="text-sm text-red-500">
-              {errors.password.message as string}
-            </p>
-          )}
         </div>
       </div>
 

@@ -23,6 +23,7 @@ export default function RootLayout({
   return (
     <html lang="ar" dir="rtl" suppressHydrationWarning>
       <body
+        suppressHydrationWarning={true}
         className={`${notoSansArabic.variable} antialiased min-h-screen bg-background `}
         style={{ fontFamily: "var(--font-noto-arabic), sans-serif" }}
       >
