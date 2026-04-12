@@ -1,4 +1,6 @@
 import mongoose, { Mongoose } from "mongoose";
+import "@/models/User";
+import "@/models/Course";
 
 declare global {
   var mongooseCache:

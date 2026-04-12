@@ -211,7 +211,7 @@ const CampusListPage = () => {
                     <span className="text-4xl">🗓️</span>
                   </div>
                 )}
-                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-semibold text-primary shadow-sm">
+                <div className="absolute top-4 right-4 bg-primary-foreground text-primary  backdrop-blur-sm px-3 py-1 rounded-full text-sm font-semibold shadow-sm">
                   {new Date(event.date).toLocaleDateString("ar-SA")}
                 </div>
               </div>

@@ -133,18 +133,18 @@ const Header = () => {
                     <ul className="grid gap-3 p-6 md:w-100 lg:w-125 lg:grid-cols-[1fr_.75fr]">
                       <li className="row-span-3">
                         <NavigationMenuLink asChild>
-                          <a
+                          <Link
                             className="flex h-full w-full select-none flex-col justify-end rounded-md bg-linear-to-b from-indigo-500 to-purple-600 p-6 no-underline outline-none focus:shadow-md"
-                            href="/lib"
+                            href="/campus"
                           >
-                            <Book className=" h-6 w-6 text-white " />
+                            <Book className=" h-6 w-6 يtext-white " />
                             <div className="mb-2 mt-4 text-lg font-medium text-white">
                               التميز الأكاديمي
                             </div>
                             <p className="text-sm leading-tight text-white/90">
                               اكتشف برامجنا العالمية المصممة لقادة المستقبل
                             </p>
-                          </a>
+                          </Link>
                         </NavigationMenuLink>
                       </li>
                       <ListItem href="/courses" title="برامج البكالوريس">

@@ -3,6 +3,7 @@ import dbConnect from "@/lib/mangodb";
 import Course from "@/models/Course";
 import { getSession } from "@/lib/auth";
 import { createCourseSchema } from "@/lib/validations";
+import User from "@/models/User";
 
 export const GET = async (request: Request) => {
   try {
