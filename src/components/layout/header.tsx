@@ -67,10 +67,12 @@ const arabicPaths: Record<string, string> = {
   student: "الطالب",
   login: "تسجيل الدخول",
   signup: "إنشاء حساب",
-  courses: "المواد",
+  courses: "الدورات التعليمية",
   settings: "الاعدادات",
   profile: "البيانات الشخصية",
   notifications: "الاشعارات",
+  campus: "الحياة الجامعية",
+  excellence: "التميز",
 };
 
 interface UserSession {
