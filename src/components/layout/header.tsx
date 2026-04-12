@@ -135,7 +135,7 @@ const Header = () => {
                         <NavigationMenuLink asChild>
                           <Link
                             className="flex h-full w-full select-none flex-col justify-end rounded-md bg-linear-to-b from-indigo-500 to-purple-600 p-6 no-underline outline-none focus:shadow-md"
-                            href="/campus"
+                            href="/excellence"
                           >
                             <Book className=" h-6 w-6 يtext-white " />
                             <div className="mb-2 mt-4 text-lg font-medium text-white">

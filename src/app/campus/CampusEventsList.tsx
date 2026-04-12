@@ -2,6 +2,16 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 interface CampusEvent {
   _id: string;
@@ -33,27 +43,33 @@ export const CampusEventsList = () => {
     fetchEvents();
   }, []);
   if (loading) {
-    return <div className="text-center py-20">جارِ تحميل الفعاليات</div>;
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {[1, 2, 3].map((i) => (
+          <Skeleton key={i} className="h-75 w-full rounded-xl" />
+        ))}
+      </div>
+    );
   }
 
   if (events.length === 0) {
     return (
-      <div className="text-center py-20 bg-gray-50  rounded-lg">
-        <p className="text-xl text-gray-500">
-          لا توجد فعاليات حالياً، ترقبوا المزيد قريباً
-        </p>
+      <div>
+        <div className="text-center py-20 bg-gray-50 rounded-lg border border-dashed text-gray-500">
+          لا توجد فعاليات حالياً
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
       {events.map((event) => (
-        <div
+        <Card
           key={event._id}
-          className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100 "
+          className="hover:shadow-lg transition-shadow overflow-hidden"
         >
-          <div className="relative h-48 bg-gray-200">
+          <div className="h-48 bg-gray-100 relative">
             {event.image ? (
               <Image
                 src={event.image}
@@ -66,45 +82,27 @@ export const CampusEventsList = () => {
                 <span className="text-4xl">🗓️</span>
               </div>
             )}
-
-            <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-semibold text-primary shadow-sm">
+            <div className="absolute top-4 right-4 bg-primary-foreground text-primary  backdrop-blur-sm px-3 py-1 rounded-full text-sm font-semibold shadow-sm">
               {new Date(event.date).toLocaleDateString("ar-SA")}
             </div>
           </div>
-          <div className="p-6">
-            <h3 className="text-xl font-bold mb-2 text-gray-900 line-clamp-1">
-              {event.title}
-            </h3>
-            <div className="flex items-center text-sm text-gray-500 mb-4">
-              <svg
-                className="w-4 h-4 ml-1"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-              </svg>
-              {event.location}
-            </div>
-            <p className="text-gray-600 mb-4 line-clamp-3 leading-relaxed">
+          <CardHeader>
+            <CardTitle className="line-clamp-1">{event.title}</CardTitle>
+            <CardDescription className="flex items-center gap-1">
+              <span>📍</span> {event.location}
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p className="text-gray-600 line-clamp-3 text-sm">
               {event.description}
             </p>
-            <button className="w-full bg-primary/10 hover:bg-primary/20 text-primary font-medium py-2 rounded-lg transition-colors duration-200">
-              المزيد من التفاصيل
-            </button>
-          </div>
-        </div>
+          </CardContent>
+          <CardFooter>
+            <Button variant="outline" className="w-full">
+              التفاصيل
+            </Button>
+          </CardFooter>
+        </Card>
       ))}
     </div>
   );
