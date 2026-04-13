@@ -154,7 +154,7 @@ const Header = () => {
                       </ListItem>
                       <ListItem href="/graduate" title="الدراسات العليا">
                         {" "}
-                        برامج الماجستير والدكتوراة
+                        برامج الماجستير والدكتور
                       </ListItem>
                       <ListItem href="/online" title="التعلم عن بعد">
                         {" "}

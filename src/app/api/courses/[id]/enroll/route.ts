@@ -11,13 +11,13 @@ export const POST = async (
     const session = await getSession();
     if (!session) {
       return NextResponse.json(
-        { success: false, message: "غير مصرح" },
+        { success: false, message: "يجب تسجيل الدخول أولاً" },
         { status: 401 },
       );
     }
 
     const { id } = await params;
-    const { studentId } = await request.json();
+    const studentId = (session as any).userId;
 
     await dbConnect();
 
@@ -25,45 +25,34 @@ export const POST = async (
 
     if (!course) {
       return NextResponse.json(
-        { success: false, message: "الدورة التعليمية غير موجودة" },
+        { success: false, message: "المادة غير موجودة" },
         { status: 404 },
       );
     }
 
-    const isProfessor = course.professor.toString() === session.userId;
-    const isAdmin = session.role === "admin";
-    const isSelfEnroll =
-      session.role === "student" && session.userId === studentId;
+    const isAlreadyEnrolled = course.students.some(
+      (id: any) => id.toString() === studentId.toString(),
+    );
 
-    if (!isProfessor && !isAdmin && !isSelfEnroll) {
+    if (isAlreadyEnrolled) {
       return NextResponse.json(
-        { success: false, message: "غير مصرح بتسجيل الطلاب" },
-        { status: 403 },
+        { success: false, message: "أنت مسجل بالفعل في هذه المادة" },
+        { status: 400 },
       );
     }
 
-    if (course.students.includes(studentId)) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "الطالب مسجل بالفعل في هذه الدورة التعليمية",
-        },
-        { status: 403 },
-      );
-    }
-
-    course.students.push(studentId);
-    await course.save();
+    await Course.findByIdAndUpdate(id, {
+      $addToSet: { students: studentId },
+    });
 
     return NextResponse.json({
       success: true,
-      message: "تم تسجيل الطالب بنجاح ",
-      course,
+      message: "تم التسجيل في المادة بنجاح",
     });
   } catch (error) {
-    console.error("Add Student error:", error);
+    console.error("Enrollment Error:", error);
     return NextResponse.json(
-      { success: false, message: "حدث خطأ" },
+      { success: false, message: "فشل في عملية التسجيل" },
       { status: 500 },
     );
   }

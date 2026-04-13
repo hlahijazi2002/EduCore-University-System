@@ -13,6 +13,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
+import { toast } from "sonner";
 
 interface CourseDetails {
   id: string;
@@ -26,6 +27,7 @@ interface CourseDetails {
   semester: string;
   year: number;
   credits: number;
+  students: string[];
   studentsCount: number;
   type: "undergraduate" | "graduate" | "online";
   requirements?: string;
@@ -42,25 +44,45 @@ const CourseDetailsPage = ({ params }: { params: Promise<{ id: string }> }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    const fetchCourse = async () => {
-      try {
-        const res = await fetch(`/api/courses?id=${id}`);
-        const data = await res.json();
-        if (data.success) {
-          setCourse(data.course);
-        } else {
-          setError(data.message || "المادة غير موجودة");
-        }
-      } catch (error) {
-        console.log("Error fetching course:", error);
-        setError("حدث خطأ أثناء تحميل تفاصيل الدورة التعليمية");
-      } finally {
-        setLoading(false);
+  const fetchCourse = async () => {
+    try {
+      const res = await fetch(`/api/courses/${id}`);
+      const data = await res.json();
+      if (data.success) {
+        setCourse(data.course);
+      } else {
+        setError(data.message || "المادة غير موجودة");
       }
-    };
+    } catch (error) {
+      console.log("Error fetching course:", error);
+      setError("حدث خطأ أثناء تحميل تفاصيل الدورة التعليمية");
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
     if (id) fetchCourse();
   }, [id]);
+
+  const handleEnroll = async () => {
+    try {
+      const res = await fetch(`/api/courses/${id}/enroll`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({}),
+      });
+      const data = await res.json();
+      if (data.success) {
+        toast.success("تم التسجيل في المادة بنجاح!");
+        fetchCourse();
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.error("Full Error:", error);
+      toast.error("فشل الاتصال بالسيرفر");
+    }
+  };
 
   if (loading) {
     return (
@@ -245,11 +267,32 @@ const CourseDetailsPage = ({ params }: { params: Promise<{ id: string }> }) => {
               )}
               <div className="flex justify-between items-center py-2">
                 <span className="text-gray-500">الطلاب المسجلين</span>
-                <span className="font-medium">{course.studentsCount}</span>
+                <span className="font-medium">
+                  {/* {course.studentsCount} */}
+
+                  {course.students && course.students.length > 0 ? (
+                    <div className="flex flex-wrap gap-2">
+                      {course.students.map((student: any, index) => (
+                        <Badge key={index} variant="outline">
+                          {/* إذا استخدمت populate سيكون student.name، إذا لم تستخدمه سيكون الـ ID */}
+                          {typeof student === "object"
+                            ? student.name
+                            : "طالب مسجل"}
+                        </Badge>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-sm text-gray-500">
+                      لا يوجد طلاب مسجلون حالياً.
+                    </p>
+                  )}
+                </span>
               </div>
             </CardContent>
             <CardFooter>
-              <Button className="w-full text-lg py-6">تسجيل في المادة</Button>
+              <Button onClick={handleEnroll} className="w-full text-lg py-6">
+                تسجيل في المادة
+              </Button>
             </CardFooter>
           </Card>
 
